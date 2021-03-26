@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Model\TeamLead\Entity\TeamLead\Event;
+namespace App\Entity\TeamLead\Event;
 
-use App\Model\EventChanelInterface;
-use App\Model\SubscriberInterface;
+use App\Entity\EventChanelInterface;
+use App\Entity\SubscriberInterface;
 
 /**
  * Class EventChanel
  *
- * @package App\Model\TeamLead\Entity\TeamLead\Event
+ * @package App\Entity\TeamLead\Event
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 class EventChanel implements EventChanelInterface

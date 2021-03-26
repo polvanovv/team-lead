@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace App\Model\TeamLead\Entity\TeamLead;
+namespace App\Entity\TeamLead;
 
 
 use Webmozart\Assert\Assert;
@@ -11,7 +11,7 @@ use Webmozart\Assert\Assert;
 /**
  * Class LeadMessage
  *
- * @package App\Model\TeamLead\Entity\TeamLead
+ * @package App\Entity\TeamLead
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 class LeadMessage

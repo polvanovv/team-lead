@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 
-namespace App\Model\TeamLead\Entity\TeamLead;
+namespace App\Entity\TeamLead;
 
 use Webmozart\Assert\Assert;
 
 /**
  * Class LeadState
  *
- * @package App\Model\TeamLead\Entity\TeamLead
+ * @package App\Entity\TeamLead
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 class LeadState

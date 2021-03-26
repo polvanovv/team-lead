@@ -3,11 +3,17 @@
 declare(strict_types=1);
 
 
-namespace App\Model\Manager\Entity\Manager;
+namespace App\Entity\Manager;
 
 
-use App\Model\SubscriberInterface;
+use App\Entity\SubscriberInterface;
 
+/**
+ * Class Manager
+ *
+ * @package App\Entity\Manager
+ * @author Polvanov Igor <polvanovv@gmail.com>
+ */
 class Manager implements SubscriberInterface
 {
     /**

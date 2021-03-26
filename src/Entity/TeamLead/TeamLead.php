@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 
-namespace App\Model\TeamLead\Entity\TeamLead;
+namespace App\Entity\TeamLead;
 
-use App\Model\HumanResources\Entity\HumanResources\HumanResources;
-use App\Model\Manager\Entity\Manager\Manager;
-use App\Model\TeamLead\Entity\Service\JuniorResultGenerator;
-use App\Model\TeamLead\Entity\TeamLead\Event\EventChanel;
-use App\Model\TeamLead\Entity\TeamLead\Event\Publisher;
+use App\Entity\HumanResources\HumanResources;
+use App\Entity\Manager\Manager;
+use App\Entity\TeamLead\Event\EventChanel;
+use App\Entity\TeamLead\Event\Publisher;
 
 /**
  * Class TeamLead

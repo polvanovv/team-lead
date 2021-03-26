@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Model\TeamLead\Entity\Service;
+namespace App\Entity\TeamLead\Service;
 
 /**
- * Class JuniorChecker
+ * Class JuniorResultGenerator
  *
- * @package App\Model\TeamLead\Entity\Service
+ * @package App\Entity\Service
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 class JuniorResultGenerator

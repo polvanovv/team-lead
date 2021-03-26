@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 
-namespace App\Model\TeamLead\Entity\TeamLead\Event;
+namespace App\Entity\TeamLead\Event;
 
 
-use App\Model\EventChanelInterface;
-use App\Model\PublisherInterface;
+use App\Entity\EventChanelInterface;
+use App\Entity\PublisherInterface;
 
 /**
  * Class Publisher
  *
- * @package App\Model\TeamLead\Entity\TeamLead\Event
+ * @package App\Entity\TeamLead\Event
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 class Publisher implements PublisherInterface

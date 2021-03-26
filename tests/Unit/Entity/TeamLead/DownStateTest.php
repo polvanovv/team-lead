@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Test\Unit\Model\TeamLead\Entity\TeamLead;
+namespace App\Test\Unit\Entity\TeamLead;
 
-use App\Model\TeamLead\Entity\Service\JuniorResultGenerator;
-use App\Model\TeamLead\Entity\TeamLead\LeadState;
-use App\Model\TeamLead\Entity\TeamLead\TeamLead;
+use App\Entity\TeamLead\Service\JuniorResultGenerator;
+use App\Entity\TeamLead\LeadState;
+use App\Entity\TeamLead\TeamLead;
 use PHPUnit\Framework\TestCase;
 
 

@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace App\Model\HumanResources\Entity\HumanResources;
+namespace App\Entity\HumanResources;
 
 
-use App\Model\SubscriberInterface;
+use App\Entity\SubscriberInterface;
 
 /**
  * Class HumanResources

@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 
-namespace App\Model;
+namespace App\Entity;
 
 /**
  * Interface SubscriberInterface
  *
- * @package App\Model\Interfaces
+ * @package App\Entity
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 interface SubscriberInterface

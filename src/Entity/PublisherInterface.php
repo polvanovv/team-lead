@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Entity;
 
 /**
  * Interface PublisherInterface
  *
- * @package App\Model\Interfaces
+ * @package App\Entity
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
 interface PublisherInterface
