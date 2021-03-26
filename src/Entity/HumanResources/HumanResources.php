@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace App\Entity\HumanResources;
 
 
-use App\Entity\SubscriberInterface;
+use App\Entity\TeamLead\TeamLead;
 
 /**
  * Class HumanResources
@@ -14,29 +14,27 @@ use App\Entity\SubscriberInterface;
  * @package App\Model\HumanResources\Entity\HumanResources
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class HumanResources implements SubscriberInterface
+class HumanResources implements \SplObserver
 {
-
     /**
      * @var int
      */
-    private int $reprimandCount;
+    private int $failures;
 
     /**
-     * @param $data
-     *
-     * @return mixed|void
+     * @param \SplSubject $subject
      */
-    public function update($data)
+    public function update(\SplSubject $subject)
     {
-        $this->reprimandCount = $data;
+        /** @var TeamLead reprimandCount */
+        $this->failures = $subject->getReprimandCount();
     }
 
     /**
      * @return int
      */
-    public function getReprimandCount(): int
+    public function getFailuresCount(): int
     {
-        return $this->reprimandCount;
+        return $this->failures;
     }
 }

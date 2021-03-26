@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace App\Entity\Manager;
 
 
-use App\Entity\SubscriberInterface;
+use App\Entity\TeamLead\TeamLead;
 
 /**
  * Class Manager
@@ -14,28 +14,25 @@ use App\Entity\SubscriberInterface;
  * @package App\Entity\Manager
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class Manager implements SubscriberInterface
+class Manager implements \SplObserver
 {
-    /**
-     * @var int
-     */
-    private int $praiseCount;
+
+    private int $successes;
 
     /**
-     * @param $data
-     *
-     * @return mixed|void
+     * @param \SplSubject $subject
      */
-    public function update($data)
+    public function update(\SplSubject $subject)
     {
-        $this->praiseCount = $data;
+        /** @var TeamLead $subject */
+        $this->successes = $subject->getPraiseCount();
     }
 
     /**
      * @return int
      */
-    public function getPraiseCount(): int
+    public function getSuccesses(): int
     {
-        return $this->praiseCount;
+        return $this->successes;
     }
 }

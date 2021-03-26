@@ -7,8 +7,8 @@ namespace App\Entity\TeamLead;
 
 use App\Entity\HumanResources\HumanResources;
 use App\Entity\Manager\Manager;
-use App\Entity\TeamLead\Event\EventChanel;
-use App\Entity\TeamLead\Event\Publisher;
+use SplObjectStorage;
+use SplObserver;
 
 /**
  * Class TeamLead
@@ -16,7 +16,7 @@ use App\Entity\TeamLead\Event\Publisher;
  * @package App\Model\TeamLead\Entity\TeamLead
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class TeamLead
+class TeamLead implements \SplSubject
 {
     /**
      * @var LeadState
@@ -29,21 +29,6 @@ class TeamLead
     private LeadMessage $message;
 
     /**
-     * @var EventChanel
-     */
-    private EventChanel $eventChanel;
-
-    /**
-     * @var Publisher
-     */
-    private Publisher $praisePublisher;
-
-    /**
-     * @var Publisher
-     */
-    private Publisher $reprimandPublisher;
-
-    /**
      * @var int
      */
     private static int $praiseCount = 0;
@@ -52,14 +37,11 @@ class TeamLead
      * @var int
      */
     private static int $reprimandCount = 0;
+
     /**
-     * @var Manager
+     * @var SplObjectStorage
      */
-    private Manager $manager;
-    /**
-     * @var HumanResources
-     */
-    private HumanResources $hr;
+    private SplObjectStorage $observers;
 
 
     /**
@@ -69,15 +51,8 @@ class TeamLead
      */
     public function __construct(LeadState $state)
     {
-        $this->state              = $state;
-        $this->eventChanel        = new EventChanel();
-        $this->praisePublisher    = new Publisher('praise', $this->eventChanel);
-        $this->reprimandPublisher = new Publisher('reprimand', $this->eventChanel);
-        $this->manager            = new Manager();
-        $this->hr                 = new HumanResources();
-
-        $this->eventChanel->subscribe('praise', $this->manager);
-        $this->eventChanel->subscribe('reprimand', $this->hr);
+        $this->state = $state;
+        $this->observers = new SplObjectStorage();
     }
 
     /**
@@ -98,8 +73,7 @@ class TeamLead
     {
         if ($this->state->isTimeToPraise()) {
             $this->increasePraiseCount();
-
-            $this->praisePublisher->publish(self::$praiseCount);
+            $this->notify();
         }
 
         $this->message = LeadMessage::success();
@@ -110,8 +84,7 @@ class TeamLead
     {
         if ($this->state->isTimeToReprimand()) {
             $this->increaseReprimandCount();
-
-            $this->reprimandPublisher->publish(self::$reprimandCount);
+            $this->notify();
         }
 
         $this->message = LeadMessage::failure();
@@ -139,9 +112,8 @@ class TeamLead
      */
     public function increasePraiseCount(): int
     {
-        $result = self::$praiseCount += 1;
+        return self::$praiseCount += 1;
 
-        return $result;
     }
 
     /**
@@ -168,21 +140,20 @@ class TeamLead
         return self::$reprimandCount;
     }
 
-    /**
-     * @return Manager
-     */
-    public function getManager(): Manager
+    public function attach(SplObserver $observer)
     {
-        return $this->manager;
+        $this->observers->attach($observer);
     }
 
-    /**
-     * @return HumanResources
-     */
-    public function getHr(): HumanResources
+    public function detach(SplObserver $observer)
     {
-        return $this->hr;
+        $this->observers->detach($observer);
     }
 
-
+    public function notify()
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
+    }
 }
