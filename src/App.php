@@ -12,5 +12,8 @@ namespace App;
  */
 class App
 {
-
+    public function run()
+    {
+        //code to run application
+    }
 }
