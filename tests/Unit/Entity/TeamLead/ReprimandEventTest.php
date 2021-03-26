@@ -21,11 +21,11 @@ class ReprimandEventTest extends TestCase
 
         $teamLead->leadReaction(JuniorResultGenerator::failureResult());
 
-        $this->assertEquals(2, $teamLead->getHr()->getReprimandCount());
+        $this->assertEquals(TeamLead::getReprimandCount(), $teamLead->getHr()->getReprimandCount());
         $this->assertEquals( 'You can do better.', $teamLead->getMessage(),);
 
         $teamLead->leadReaction(JuniorResultGenerator::successResult());
-        $this->assertEquals(2, $teamLead->getHr()->getReprimandCount());
+        $this->assertEquals(TeamLead::getReprimandCount(), $teamLead->getHr()->getReprimandCount());
 
     }
 
