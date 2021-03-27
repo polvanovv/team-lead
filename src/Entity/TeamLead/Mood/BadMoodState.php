@@ -12,7 +12,7 @@ namespace App\Entity\TeamLead\Mood;
  * @package App\Entity\TeamLead\Mood
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class BadMoodState extends BaseMoodState
+class BadMoodState extends AbstractBaseMoodState
 {
 
     /**
