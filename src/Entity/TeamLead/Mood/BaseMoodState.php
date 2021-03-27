@@ -6,13 +6,7 @@ declare(strict_types=1);
 namespace App\Entity\TeamLead\Mood;
 
 
-/**
- * Class FineMoodState
- *
- * @package App\Entity\TeamLead\Mood
- * @author Polvanov Igor <polvanovv@gmail.com>
- */
-class FineMoodState extends BaseMoodState
+class BaseMoodState extends AbstractBaseMoodState
 {
     /**
      * @var string
@@ -30,17 +24,40 @@ class FineMoodState extends BaseMoodState
     protected $stepDownWeight;
 
     /**
-     * FineMoodState constructor.
+     * BadMoodState constructor.
      *
      * @param int $stepUpWeight
      * @param int $stepDownWeight
      */
     public function __construct(int $stepUpWeight = 1, int $stepDownWeight = 1)
     {
-        parent::__construct();
-        $this->moodName       = 'fine mood';
+        $this->moodName       = 'base mood';
         $this->stepUpWeight   = $stepUpWeight;
         $this->stepDownWeight = $stepDownWeight;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStepUpWeight(): int
+    {
+        return $this->stepUpWeight;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStepDownWeight(): int
+    {
+        return $this->stepDownWeight;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoodName(): string
+    {
+        return $this->moodName;
     }
 
 }
