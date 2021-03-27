@@ -14,20 +14,6 @@ namespace App\Entity\TeamLead\Mood;
  */
 class FineMoodState extends BaseMoodState
 {
-    /**
-     * @var string
-     */
-    protected $moodName;
-
-    /**
-     * @var int
-     */
-    protected $stepUpWeight;
-
-    /**
-     * @var int
-     */
-    protected $stepDownWeight;
 
     /**
      * FineMoodState constructor.

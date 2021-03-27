@@ -14,20 +14,6 @@ namespace App\Entity\TeamLead\Mood;
  */
 class BadMoodState extends BaseMoodState
 {
-    /**
-     * @var string
-     */
-    protected $moodName;
-
-    /**
-     * @var int
-     */
-    protected $stepUpWeight;
-
-    /**
-     * @var int
-     */
-    protected $stepDownWeight;
 
     /**
      * BadMoodState constructor.
