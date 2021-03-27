@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace App\Entity\TeamLead\Mood;
 
 
-class BaseMoodState extends AbstractBaseMoodState
+abstract class BaseMoodState implements MoodStateInterface
 {
     /**
      * @var string
