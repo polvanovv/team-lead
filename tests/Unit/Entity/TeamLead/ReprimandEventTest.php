@@ -6,9 +6,10 @@ declare(strict_types=1);
 namespace App\Test\Unit\Entity\TeamLead;
 
 
-use App\Entity\HumanResources\HumanResources;
-use App\Entity\TeamLead\Service\JuniorResultGenerator;
-use App\Entity\TeamLead\LeadState;
+use App\Entity\Observer\HumanResources;
+use App\Entity\TeamLead\Mood\WorstMoodState;
+use App\Service\JuniorResultGenerator;
+use App\Entity\TeamLead\Mood\Mood;
 use App\Entity\TeamLead\TeamLead;
 use PHPUnit\Framework\TestCase;
 
@@ -17,19 +18,17 @@ class ReprimandEventTest extends TestCase
     public function testSuccessDoubleReprimand()
     {
         $teamLead = new TeamLead(
-            $state = new LeadState('worst')
+            $state = new Mood(new WorstMoodState())
         );
 
         $hr = new HumanResources();
         $teamLead->attach($hr);
 
         $teamLead->leadReaction(JuniorResultGenerator::failureResult());
-
-        $this->assertEquals(TeamLead::getReprimandCount(), $hr->getFailuresCount());
+        $this->assertEquals(1, $hr->getWorkResults());
 
         $teamLead->leadReaction(JuniorResultGenerator::failureResult());
-
-        $this->assertEquals(TeamLead::getReprimandCount(), $hr->getFailuresCount());
+        $this->assertEquals(2, $hr->getWorkResults());
     }
 
 }

@@ -3,40 +3,42 @@
 declare(strict_types=1);
 
 
-namespace App\Entity\TeamLead;
+namespace App\Service;
 
 
 use Webmozart\Assert\Assert;
 
 /**
- * Class LeadMessage
+ * Class PhraseGenerator
  *
- * @package App\Entity\TeamLead
+ * @package App\Service
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class LeadMessage
+class PhraseGenerator
 {
     public const SUCCESS_MESSAGE = 'Keep it up.';
     public const FAILURE_MESSAGE = 'You can do better.';
 
     /**
+     * Phrase text
+     *
      * @var string
      */
-    private string $text;
+    private  $text;
 
     /**
      * LeadMessage constructor.
      *
-     * @param string $message
+     * @param string $phrase
      */
-    public function __construct(string $message)
+    public function __construct(string $phrase)
     {
-        Assert::oneOf($message, [
+        Assert::oneOf($phrase, [
             self::SUCCESS_MESSAGE,
             self::FAILURE_MESSAGE
         ]);
 
-        $this->text = $message;
+        $this->text = $phrase;
     }
 
     /**

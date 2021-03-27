@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 
-namespace App\Entity\HumanResources;
+namespace App\Entity\Observer;
 
-
-use App\Entity\TeamLead\TeamLead;
 
 /**
  * Class HumanResources
@@ -14,27 +12,26 @@ use App\Entity\TeamLead\TeamLead;
  * @package App\Model\HumanResources\Entity\HumanResources
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class HumanResources implements \SplObserver
+class HumanResources extends AbstractObserver
 {
     /**
-     * @var int
+     * @var array
      */
-    private int $failures;
+    private static $workResults = [];
 
     /**
      * @param \SplSubject $subject
      */
     public function update(\SplSubject $subject)
     {
-        /** @var TeamLead reprimandCount */
-        $this->failures = $subject->getReprimandCount();
+        self::$workResults[] = $subject;
     }
 
     /**
      * @return int
      */
-    public function getFailuresCount(): int
+    public function getWorkResults(): int
     {
-        return $this->failures;
+        return  count(self::$workResults);
     }
 }

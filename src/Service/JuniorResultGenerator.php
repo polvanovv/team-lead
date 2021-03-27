@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\TeamLead\Service;
+namespace App\Service;
 
 /**
  * Class JuniorResultGenerator

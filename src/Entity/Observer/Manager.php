@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 
-namespace App\Entity\Manager;
+namespace App\Entity\Observer;
 
-
-use App\Entity\TeamLead\TeamLead;
 
 /**
  * Class Manager
@@ -14,25 +12,27 @@ use App\Entity\TeamLead\TeamLead;
  * @package App\Entity\Manager
  * @author Polvanov Igor <polvanovv@gmail.com>
  */
-class Manager implements \SplObserver
+class Manager extends AbstractObserver
 {
 
-    private int $successes;
+    /**
+     * @var array
+     */
+    private static $workResults = [];
 
     /**
      * @param \SplSubject $subject
      */
     public function update(\SplSubject $subject)
     {
-        /** @var TeamLead $subject */
-        $this->successes = $subject->getPraiseCount();
+        self::$workResults[] = $subject;
     }
 
     /**
      * @return int
      */
-    public function getSuccesses(): int
+    public function getWorkResults(): int
     {
-        return $this->successes;
+        return count(self::$workResults);
     }
 }

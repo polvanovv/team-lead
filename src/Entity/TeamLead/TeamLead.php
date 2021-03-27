@@ -5,8 +5,9 @@ declare(strict_types=1);
 
 namespace App\Entity\TeamLead;
 
-use App\Entity\HumanResources\HumanResources;
-use App\Entity\Manager\Manager;
+use App\Entity\TeamLead\Mood\Mood;
+use App\Entity\TeamLead\Mood\MoodStateInterface;
+use App\Service\PhraseGenerator;
 use SplObjectStorage;
 use SplObserver;
 
@@ -19,137 +20,116 @@ use SplObserver;
 class TeamLead implements \SplSubject
 {
     /**
-     * @var LeadState
+     * @var Mood
      */
-    private LeadState $state;
+    private  $mood;
 
     /**
-     * @var LeadMessage
+     * TeamLead phrase
+     *
+     * @var string
      */
-    private LeadMessage $message;
-
-    /**
-     * @var int
-     */
-    private static int $praiseCount = 0;
-
-    /**
-     * @var int
-     */
-    private static int $reprimandCount = 0;
+    private  $phrase;
 
     /**
      * @var SplObjectStorage
      */
-    private SplObjectStorage $observers;
+    private $observers;
 
 
     /**
      * TeamLead constructor.
      *
-     * @param LeadState $state
+     * @param Mood $mood
      */
-    public function __construct(LeadState $state)
+    public function __construct(Mood $mood)
     {
-        $this->state = $state;
+        $this->mood      = $mood;
         $this->observers = new SplObjectStorage();
     }
 
     /**
+     * Calls the required function depending on the result of the programmer.
+     *
      * @param int $juniorResult
      */
     public function leadReaction(int $juniorResult)
     {
         if ($juniorResult) {
-            $this->riseState();
+            $this->upMoodState();
 
             return;
         }
 
-        $this->downState();
+        $this->downMoodState();
     }
 
-    public function riseState()
+    /**
+     * Sets a higher mood. Sets the desired phrase. Notifies if necessary.
+     */
+    public function upMoodState()
     {
-        if ($this->state->isTimeToPraise()) {
-            $this->increasePraiseCount();
+        if ($this->mood->isTimeToPraise()) {
             $this->notify();
         }
 
-        $this->message = LeadMessage::success();
-        $this->state   = $this->state->stepUpState();
+        $this->phrase = PhraseGenerator::success();
+        $this->mood   = $this->mood->stepUpMoodState();
     }
 
-    public function downState()
+    /**
+     * Sets a lower mood. Sets the desired phrase. Notifies if necessary.
+     */
+    public function downMoodState()
     {
-        if ($this->state->isTimeToReprimand()) {
-            $this->increaseReprimandCount();
+        if ($this->mood->isTimeToReprimand()) {
             $this->notify();
         }
 
-        $this->message = LeadMessage::failure();
-        $this->state   = $this->state->stepDownState();
+        $this->phrase = PhraseGenerator::failure();
+        $this->mood   = $this->mood->stepDownMoodState();
     }
 
     /**
      * @return string
      */
-    public function getMessage(): string
+    public function getPhrase(): string
     {
-        return $this->message->getText();
+        return $this->phrase->getText();
     }
 
     /**
-     * @return string
+     * @return MoodStateInterface
      */
-    public function getState(): string
+    public function getMood(): MoodStateInterface
     {
-        return $this->state->getName();
+        return $this->mood->getMoodStateClass();
     }
+
 
     /**
-     * @return int
+     * Attach observer
+     *
+     * @param SplObserver $observer
      */
-    public function increasePraiseCount(): int
-    {
-        return self::$praiseCount += 1;
-
-    }
-
-    /**
-     * @return int
-     */
-    public function increaseReprimandCount(): int
-    {
-        return self::$reprimandCount += 1;
-    }
-
-    /**
-     * @return int
-     */
-    public static function getPraiseCount(): int
-    {
-        return self::$praiseCount;
-    }
-
-    /**
-     * @return int
-     */
-    public static function getReprimandCount(): int
-    {
-        return self::$reprimandCount;
-    }
-
     public function attach(SplObserver $observer)
     {
         $this->observers->attach($observer);
     }
 
+    /**
+     * Detach observer
+     *
+     * @param SplObserver $observer
+     */
     public function detach(SplObserver $observer)
     {
         $this->observers->detach($observer);
     }
 
+    /**
+     * Notifies observers
+     */
     public function notify()
     {
         foreach ($this->observers as $observer) {
