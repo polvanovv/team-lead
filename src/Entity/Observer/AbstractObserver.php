@@ -8,8 +8,24 @@ namespace App\Entity\Observer;
 
 abstract class AbstractObserver implements \SplObserver
 {
+    /**
+     * @var array
+     */
+    protected static $workResults = [];
 
-    abstract public function update(\SplSubject $subject);
+    /**
+     * @param \SplSubject $subject
+     */
+    public function update(\SplSubject $subject)
+    {
+        static::$workResults[] = $subject;
+    }
 
-    abstract public function getWorkResults(): int;
+    /**
+     * @return int
+     */
+    public function getWorkResults(): int
+    {
+        return  count(static::$workResults);
+    }
 }

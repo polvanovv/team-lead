@@ -14,25 +14,8 @@ namespace App\Entity\Observer;
  */
 class Manager extends AbstractObserver
 {
-
     /**
      * @var array
      */
-    private static $workResults = [];
-
-    /**
-     * @param \SplSubject $subject
-     */
-    public function update(\SplSubject $subject)
-    {
-        self::$workResults[] = $subject;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWorkResults(): int
-    {
-        return count(self::$workResults);
-    }
+    protected static $workResults = [];
 }
