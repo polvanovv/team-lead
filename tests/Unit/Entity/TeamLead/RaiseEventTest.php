@@ -24,11 +24,13 @@ class RaiseEventTest extends TestCase
         $manager = new Manager();
         $teamLead->attach($manager);
 
-        $teamLead->leadReaction(JuniorResultGenerator::successResult());
-        $this->assertEquals(1, $manager->getWorkResults());
+        $workResults = $manager->getWorkResults();
 
         $teamLead->leadReaction(JuniorResultGenerator::successResult());
-        $this->assertEquals(2, $manager->getWorkResults());
+        $this->assertEquals($workResults + 1, $manager->getWorkResults());
+
+        $teamLead->leadReaction(JuniorResultGenerator::successResult());
+        $this->assertEquals($workResults + 2, $manager->getWorkResults());
 
     }
 }

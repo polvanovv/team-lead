@@ -24,11 +24,13 @@ class ReprimandEventTest extends TestCase
         $hr = new HumanResources();
         $teamLead->attach($hr);
 
-        $teamLead->leadReaction(JuniorResultGenerator::failureResult());
-        $this->assertEquals(1, $hr->getWorkResults());
+        $workResults = $hr->getWorkResults();
 
         $teamLead->leadReaction(JuniorResultGenerator::failureResult());
-        $this->assertEquals(2, $hr->getWorkResults());
+        $this->assertEquals( $workResults + 1, $hr->getWorkResults());
+
+        $teamLead->leadReaction(JuniorResultGenerator::failureResult());
+        $this->assertEquals($workResults + 2, $hr->getWorkResults());
     }
 
 }
